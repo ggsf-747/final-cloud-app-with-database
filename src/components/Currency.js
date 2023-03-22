@@ -35,12 +35,12 @@ const Currency = (props) => {
 
       return (
         <div className='alert alert-secondary'>  
-        <span> Currency ({currency}) </span>
+        <span> Currency ({currencyLabel(currency)}) </span>
         <span>
           <select 
             className='btn btn-success dropdown-toggle'
             id='currency'
-            onChange={(event) =>changeCurrency(event)}>Currency ({currency})
+            onChange={(event) =>currencyLabel(event)}>Currency ({currencyLabel})
               <option defaultValue={currency}>Currency ({currency})</option>
               <option value='£'>£ Pound</option>
               <option value='$'>$ Dollar</option>
