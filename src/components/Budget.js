@@ -21,7 +21,7 @@ const Budget = () => {
 	}
 	
 	return (
-		<div className='alert alert-secondary'>
+		<div className='alert alert-secondary' style={{ display: 'flex', alignItems: 'center' }}>
             <span>Budget: {currency}</span>
 			<input type="number" step="10" value={budget} onInput={(event)=>changeBudget(event.target.value)}></input>
 		</div>
