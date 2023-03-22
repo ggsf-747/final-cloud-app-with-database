@@ -7,14 +7,15 @@ const Currency = (props) => {
     const [selectedOptionText, setSelectedOptionText] = useState('');
 
     const {currency, dispatch} = useContext(AppContext);
+    const [isOpen, setIsOpen] = useState(false);
 
     const thisFunction = (val) => {
         console.log("val", val);
         return val
     };
 
-	const changeCurrency = (val)=>{
-        console.log("val", val);
+	const setCurrencyHandler = (currency)=>{
+        console.log("currency", currency);
         dispatch({
             type: 'CHG_CURRENCY',
             payload: currency,
@@ -36,33 +37,60 @@ const Currency = (props) => {
       };
 
       return (
-		<div className='alert alert-secondary'>
-        <label style={{marginLeft: '1rem' , backgroundColor:'#33FF49', color:'white'}} >Currency {currency}
-      <select name='hover_color'id="currency" onChange={(event)=>changeCurrency(event.target.value)} style={{ marginLeft: '1rem' , backgroundColor:'#33FF49', color:'white'}}>
-        <option style={{color:'black'}} value="£">£ Pound</option>
-        <option style={{color:'black'}} value="$">$ Dollar</option>
-        <option style={{color:'black'}} value="€">€ Euro</option>
-        <option style={{color:'black'}} value="₹">₹ Rupee</option>
-      </select>	
-      </label>
-      	
-    </div>
-	);
+          <div id="currency-drop" className="dropdown" style = {{cursor: 'pointer' }}>
+              <button
+              id = "currency-drop-button"
+              className = "btn dropdown-toggle"
+              type = "button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              style = {{ backgroundColor: '#45e399', color: '#eee' }}
+              onClick = {() => setIsOpen(!isOpen)}
+            >
+            Currency {'('}{currencyLabel()}{')'}
+            </button>
+            <ul className={`custom-menu dropdown-menu ${isOpen ? 'show' : ''} `}>
+                <li>
+                    <button
+                        className = "dropdown-item"
+                        type = "button"
+                        onClick = {() => setCurrencyHandler('$')}
+                    >
+                        $ Dollar
+                    </button>
+                </li>
+                <li>
+                    <button
+                        className = "dropdown-item"
+                        type = "button"
+                        onClick = {() => setCurrencyHandler('£')}
+                    >
+                        £ Pound
+                    </button>
+                </li>
+                <li>
+                    <button
+                        className = "dropdown-item"
+                        type = "button"
+                        onClick = {() => setCurrencyHandler('€')}
+                    >
+                        € Euro
+                    </button>
+                </li>
+                <li>
+                    <button
+                        className = "dropdown-item"
+                        type = "button"
+                        onClick = {() => setCurrencyHandler('₹')}
+                    >
+                        ₹ Ruppee
+                    </button>
+                </li>
+              </ul>                                
 
+            </div>
+
+
+	);
 };
 export default Currency;
-// import React, { useContext } from 'react';
-// import { AppContext } from '../context/AppContext'; 
-// const Currency = () => {
-//     const { expenses, budget } = useContext(AppContext);
-//     const totalExpenses = expenses.reduce((total, item) => {
-//         return (total = total + item.cost);
-//     }, 0);
-//     const alertType = totalExpenses > budget ? 'alert-danger' : 'alert-success';
-//     return (
-//         <div className={`alert ${alertType}`}>
-//             <span>Currency: £{budget - totalExpenses}</span>
-//         </div>
-//     );
-// };
-// export default Currency;
