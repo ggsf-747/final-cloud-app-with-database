@@ -6,7 +6,7 @@ const Currency = (props) => {
 
     const [selectedOptionText, setSelectedOptionText] = useState('');
 
-    const {dispatch} = useContext(AppContext);
+    const {currency, dispatch} = useContext(AppContext);
 
 	const changeCurrency = (val)=>{
 
@@ -14,31 +14,45 @@ const Currency = (props) => {
 
             type: 'CHG_CURRENCY',
 
-            payload: val,
+            payload: currency,
 
         })
+    };
+    const currencyLabel = ()=> {
+        switch(currency){
+          case '$' :
+            return '$ Dollar'
+          case '£' :
+            return '£ Pound'
+          case '€' :
+            return '€ Euro'
+          case '₹' :
+            return '₹ Ruppee'
+          default:
+            return ''
+        }
+      };
 
-}
-return (
-
-    <div className='alert alert-secondary'>
-     <span> Currency </span>
-
-  <select name="currency" id="currency" onChange={(event)=>changeCurrency(event.target.value)}>
-  
-    <option value="$">$ Dollar</option>
-
-    <option value="£">£ Pound</option>
-
-    <option value="€">€ Euro</option>
-
-    <option value="₹">₹ Ruppee</option>
-
-  </select>		
-
-</div>
-
-);
+      return (
+        <div className='alert alert-secondary'>  
+        <span> Currency ({currency}) </span>
+        <span>
+          <select 
+            className='btn btn-success dropdown-toggle'
+            id='currency'
+            onChange={(event) =>changeCurrency(event)}>Currency ({currency})
+              <option defaultValue={currency}>Currency ({currency})</option>
+              <option value='£'>£ Pound</option>
+              <option value='$'>$ Dollar</option>
+              <option value='€'>€ Euro</option>
+              <option value='₹'>₹ Rupee</option>
+          </select>
+          </span>
+        </div>
+    
+    
+    
+      );
 
 };
 export default Currency;
