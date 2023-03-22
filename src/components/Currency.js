@@ -8,14 +8,16 @@ const Currency = (props) => {
 
     const {currency, dispatch} = useContext(AppContext);
 
+    const thisFunction = (val) => {
+        console.log("val", val);
+        return val
+    };
+
 	const changeCurrency = (val)=>{
-
+        console.log("val", val);
         dispatch({
-
             type: 'CHG_CURRENCY',
-
             payload: currency,
-
         })
     };
     const currencyLabel = ()=> {
@@ -34,25 +36,18 @@ const Currency = (props) => {
       };
 
       return (
-        <div className='alert alert-secondary'>  
-        <span> Currency ({currencyLabel(currency)}) </span>
-        <span>
-          <select 
-            className='btn btn-success dropdown-toggle'
-            id='currency'
-            onChange={(event) =>currencyLabel(event)}>Currency ({currencyLabel})
-              <option defaultValue={currency}>Currency ({currency})</option>
-              <option value='£'>£ Pound</option>
-              <option value='$'>$ Dollar</option>
-              <option value='€'>€ Euro</option>
-              <option value='₹'>₹ Rupee</option>
-          </select>
-          </span>
-        </div>
-    
-    
-    
-      );
+		<div className='alert alert-secondary'>
+        <label style={{marginLeft: '1rem' , backgroundColor:'#33FF49', color:'white'}} >Currency {currency}
+      <select name='hover_color'id="currency" onChange={(event)=>changeCurrency(event.target.value)} style={{ marginLeft: '1rem' , backgroundColor:'#33FF49', color:'white'}}>
+        <option style={{color:'black'}} value="£">£ Pound</option>
+        <option style={{color:'black'}} value="$">$ Dollar</option>
+        <option style={{color:'black'}} value="€">€ Euro</option>
+        <option style={{color:'black'}} value="₹">₹ Rupee</option>
+      </select>	
+      </label>
+      	
+    </div>
+	);
 
 };
 export default Currency;
